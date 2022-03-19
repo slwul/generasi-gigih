@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const clientId = process.env.REACT_APP_CLIENT_KEY;
   return (
     <div className="App">
       <header className="App-header">
