@@ -4,14 +4,18 @@ import Track from "./components/Track";
 
 function App() {
   // const clientId = process.env.REACT_APP_CLIENT_KEY;
+  const trackList = data.map( (track) => (
+    <Track
+        key={track.id}
+        url={track.album.images[0].url}
+        title={track.album.name}
+        artist={track.album.artists[0].name}
+      />
+  ));
   return (
     <div className="container">
       <h1 className="titlePlaylist">Playlist Music</h1>
-      <Track
-        url={data.album.images[0].url}
-        title={data.album.name}
-        artist={data.album.artists[0].name}
-      />
+      <div className="trackList">{trackList}</div>
     </div>
   );
 }
