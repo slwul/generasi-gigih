@@ -13,6 +13,12 @@ body {
   text-align: center;
 }
 
+.login-app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .cardPlaylist {
 	width: 200px;
 	border-radius: 8px;
@@ -45,13 +51,13 @@ body {
 	pointer-events: all;
 	font-weight: medium;
 	border: none;
-  background-color: #e0fbfc;
+  	background-color: #e0fbfc;
 	color: #293241;
 }
 
-.trackList{
+/* .trackList{
   display: grid;
   justify-items: center;
   gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
+} */
