@@ -45,7 +45,7 @@ export default class Seachbar extends Component {
                         placeholder="Search..."
                         onChange={(e) => this.handleInput(e)}
                     />
-                    <input type="submit" className="btn-search" value="Search" />
+                    <input type="submit" className="btn-primary" value="Search" />
                 </div>
             </form>
         );

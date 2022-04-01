@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import Track from "../../components/Track";
-import Seachbar from "../../components/Searchbar";
+import Searchbar from "../../components/Searchbar";
 import config from "../../utils/config";
 
 export default class Home extends Component {
     state = {
-        accessToken: "",
-        isAuthorize: false,
-        tracks: [],
+        accessToken : "",
+        isAuthorize : false,
+        tracks : [],
     };
 
     componentDidMount() {
-        const accessToken = new URLSearchParams(window.location.hash).get("access_token"
-        );
+        const accessToken = new URLSearchParams(window.location.hash).get(
+            "#access_token"
+            );
 
         this.setState({ accessToken, isAuthorize: accessToken !== null });
     }
@@ -20,8 +21,10 @@ export default class Home extends Component {
     getSpotifyLinkAuthorize() {
         const state = Date.now().toString();
         const clientId = process.env.REACT_APP_API_KEY;
+        const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
+        const REDIRECT_AFTER_LOGIN = "http://localhost:3000";
 
-        return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
+        return `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_AFTER_LOGIN}&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
     }
 
     handleSuccessSearch(tracks) {
@@ -42,7 +45,7 @@ export default class Home extends Component {
 
             {this.state.isAuthorize && (
                 <>
-                    <h1>Musify Playlist</h1>
+                    <h1>Music Playlist</h1>
                     <Searchbar
                     accessToken={this.state.accessToken}
                     onSuccess={(tracks) => this.handleSuccessSearch(tracks)}
@@ -65,3 +68,5 @@ export default class Home extends Component {
         );
     }
 }
+
+export { Home };
