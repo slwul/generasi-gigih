@@ -15,9 +15,9 @@ export default class Seachbar extends Component {
 
         const { text } = this.state;
 
-        var requestOption = {
+        var requestOptions = {
             headers: {
-                Autorization: "Bearer " + this.props.accessToken,
+                Authorization: "Bearer " + this.props.accessToken,
                 "Content-Type" : "application/json",
             },
         };
@@ -25,10 +25,10 @@ export default class Seachbar extends Component {
         try {
             const response = await fetch(
                 `${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}`,
-                requestOption
+                requestOptions
             ).then((data) => data.json());
 
-            const tracks = response.track.items;
+            const tracks = response.tracks.items;
             this.props.onSuccess(tracks);
         } catch (e) {
             alert(e);
@@ -44,6 +44,7 @@ export default class Seachbar extends Component {
                         name="query"
                         placeholder="Search..."
                         onChange={(e) => this.handleInput(e)}
+                        required
                     />
                     <input type="submit" className="btn-primary" value="Search" />
                 </div>
