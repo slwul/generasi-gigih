@@ -6,7 +6,7 @@ body {
 .container {
 	width: 90%;
 	margin: 40px;
-  text-align: center;
+  	text-align: center;
 }
 
 .titlePlaylist{
@@ -55,9 +55,10 @@ body {
 	color: #293241;
 }
 
-/* .trackList{
-  display: grid;
-  justify-items: center;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-} */
+.track-list{
+	margin-top: 30px;
+	display: grid;
+	justify-items: center;
+	gap: 20px;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
