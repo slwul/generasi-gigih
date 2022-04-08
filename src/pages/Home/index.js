@@ -1,35 +1,56 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Track from "../../components/Track";
 import Searchbar from "../../components/Searchbar";
 import config from "../../utils/config";
 
-export default class Home extends Component {
-    state = {
-        accessToken : "",
-        isAuthorize : false,
-        tracks : [],
-    };
+export default function Home () {
+    const [tracks, setTracks] = useState([]);
+    const [accessToken, setAccessToken] = useState("");
+    const [isAuthorize, setisAuthorize] = useState(false);
+    const [selectedTrackURI, setselectedTrackURI] = useState([]);
+    const [isSearch, setIsSearch] = useState(false);
 
-    componentDidMount() {
-        const accessToken = new URLSearchParams(window.location.hash).get(
-            "#access_token"
-            );
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.hash);
+        const accessToken = params.get("#access_token");
+        setAccessToken(accessToken);
+        setisAuthorize(accessToken !== null);
+    }, []); 
 
-        this.setState({ accessToken, isAuthorize: accessToken !== null });
-    }
+    useEffect(() => {
+        if (!isSearch) {
+            const selectedTracks = filterSelectedTracks();
+            setTracks(selectedTracks);
+        }
+    }, [selectedTrackURI]);
 
-    getSpotifyLinkAuthorize() {
+    const getSpotifyLinkAuthorize = () => {
         const state = Date.now().toString();
         const clientId = process.env.REACT_APP_API_KEY;
-        const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
-        const REDIRECT_AFTER_LOGIN = "http://localhost:3000";
 
-        return `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_AFTER_LOGIN}&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
-    }
+        return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=${config.RESPONSE_TYPE}&redirect_uri=${config.REDIRECT_URI}&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
+    };
 
-    handleSuccessSearch(tracks) {
-        this.setState({ tracks });
-    }
+    const filterSelectedTracks = () => {
+        return tracks.filter((track) => selectedTrackURI.includes(track.uri));
+    };
+
+    const handleSuccessSearch(selectedTracks) => {
+        setIsSearch(true);
+        const selectedTracks = filterSelectedTracks();
+
+        const searchDistinctTracks = searchTracks.filter(
+            (track) => !selectedTrackURI.includes(track.uri)
+        );
+        setTracks([...selectedTracks, ...searchDistinctTracks]);
+    };
+
+    const clearSearch = () => {
+        const selectedTracks = filterSelectedTracks();
+
+        setTracks(selectedTracks);
+        setIsSearch(false);
+    };
 
     render() {
         return (
