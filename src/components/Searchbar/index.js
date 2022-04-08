@@ -1,23 +1,19 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import config from "../../utils/config";
 
-export default class Seachbar extends Component {
-    state = {
-        text: "",
+export default function Seachbar ({ accessToken, onSuccess, onClearSearch}) {
+    const [text, setText] = useState ("");
+
+    const handleInput = (e) => {
+        setText(e.target.value);
     };
 
-    handleInput(e) {
-        this.setState({ text: e.target.value });
-    }
-
-    async handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { text } = this.state;
-
-        var requestOptions = {
+        const requestOptions = {
             headers: {
-                Authorization: "Bearer " + this.props.accessToken,
+                Authorization: "Bearer " + accessToken,
                 "Content-Type" : "application/json",
             },
         };
@@ -29,28 +25,34 @@ export default class Seachbar extends Component {
             ).then((data) => data.json());
 
             const tracks = response.tracks.items;
-            this.props.onSuccess(tracks);
+            onSuccess(tracks);
         } catch (e) {
             alert(e);
         }
-    }
+    };
 
-    render() {
-        return (
-            <form className="form-search" onSubmit={(e) => this.handleSubmit(e)}>
+    const clearSearch = () => {
+        setText("");
+        onClearSearch();
+    };
+    return (
+        <div className="search-wrapper">
+            <form className="form-search" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <input
                         type="text"
                         name="query"
                         placeholder="Search..."
-                        onChange={(e) => this.handleInput(e)}
+                        onChange={handleInput}
                         required
+                        value={text}
                     />
-                    <input type="submit" className="btn-primary" value="Search" />
+                    <input type="submit" className="btn btn-primary" value="Search" />
                 </div>
             </form>
-        );
-    }
- }
-
- export { Seachbar };
+            <button className="btn btn-text" onClick={clearSearch}>
+                clear Search
+            </button>
+        </div>
+    );
+}
