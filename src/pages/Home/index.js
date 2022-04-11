@@ -35,7 +35,7 @@ export default function Home () {
         return tracks.filter((track) => selectedTrackURI.includes(track.uri));
     };
 
-    const handleSuccessSearch(selectedTracks) => {
+    const handleSuccessSearch = (searchTracks) => {
         setIsSearch(true);
         const selectedTracks = filterSelectedTracks();
 
@@ -52,42 +52,50 @@ export default function Home () {
         setIsSearch(false);
     };
 
-    render() {
-        return (
-            <div className="container">
-            {!this.state.isAuthorize && (
-                <div className="login-app">
-                    <p>Please login to Spotify here.</p>
-                    <a href={this.getSpotifyLinkAuthorize()} className="btn-primary">
-                        Login
-                    </a>
-                </div>
-            )}
+    const toggleSelect = (track) => {
+        const uri = track.uri;
 
-            {this.state.isAuthorize && (
-                <>
-                    <h1>Music Playlist</h1>
-                    <Searchbar
-                    accessToken={this.state.accessToken}
-                    onSuccess={(tracks) => this.handleSuccessSearch(tracks)}
-                />
-                {this.state.tracks.length === 0 && <p>No tracks</p>}
+        if (selectedTrackURI.includes(uri)) {
+            setselectedTrackURI(selectedTrackURI.filter((item) => item !== uri));
+        } else {
+            setselectedTrackURI([...selectedTrackURI, uri]);
+        }
+    };
 
-                    <div className="track-list">
-                    {this.state.tracks.map((track) => (
-                        <Track
+    return (
+        <div className="container">
+        {!isAuthorize && (
+            <div className="login-app">
+                <p>Please login to Spotify here.</p>
+                <a href={getSpotifyLinkAuthorize()} className="btn btn-primary">
+                    Login
+                </a>
+            </div>
+        )}
+
+        {isAuthorize && (
+            <>
+                <h1>Music Playlist</h1>
+                <Searchbar
+                accessToken={accessToken}
+                onSuccess={(tracks) => handleSuccessSearch(tracks)}
+                onClearSearch={clearSearch}
+            />
+            {tracks.length === 0 && <p>No tracks</p>}
+
+                <div className="track-list">
+                {this.state.tracks.map((track) => (
+                    <Track
                         key={track.id}
                         url={track.album.images[0].url}
                         title={track.name}
                         artist={track.artists[0].name}
-                        />
-                    ))}
-                    </div>
-                </>
-            )}
-            </div>
-        );
-    }
+                        toggleSelect={() => toggleSelect(track)}
+                    />
+                ))}
+                </div>
+            </>
+        )}
+        </div>
+    );
 }
-
-export { Home };
