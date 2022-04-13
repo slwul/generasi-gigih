@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 
 export default function Track({ url, title, artist, toggleSelect }) {
     const [isSelected, setIsSelected] = useState(false);
@@ -8,13 +8,13 @@ export default function Track({ url, title, artist, toggleSelect }) {
         toggleSelect();
     };
     return (
-        <div className="cardPlaylist">
-            <img src={url} alt="imagePlaylist"/>
-            <h3 className="albumName">{title}</h3>
-            <p className="artistName">{artist}</p>
+        <div className="card-playlist">
+            <img src={url} alt="Track Playlist"/>
+            <h3 className="album-name">{title}</h3>
+            <p className="artist-name">{artist}</p>
             <button 
-                className={`btn btnSelect ${
-                isSelected ? "btnPrimary" : "btnSecondary"}`}
+                className={`btn btn-select ${
+                isSelected ? "btn-primary" : "btn-secondary"}`}
                 onClick={handleSelect}>
                 {isSelected ? "Deselect" : "Select"}
             </button>
