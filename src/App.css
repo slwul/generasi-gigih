@@ -9,7 +9,7 @@ body {
   	text-align: center;
 }
 
-.titlePlaylist{
+.title-playlist{
   text-align: center;
 }
 
@@ -19,28 +19,28 @@ body {
 	align-items: center;
 }
 
-.cardPlaylist {
+.card-playlist {
 	width: 200px;
 	border-radius: 8px;
 	padding: 10px;
 	background-color: #293241;
 }
 
-.cardPlaylist img {
+.card-playlist img {
   width: 100%;
 }
 
-.cardPlaylist, h3 p {
+.card-playlist, h3 p {
   color: white;
 }
 
-.albumName {
+.album-name {
   font-size: 16px;
   height: 60px;
 }
 
-.btnSelect {
-  border-radius: 5px;
+.btn-select {
+  	border-radius: 5px;
 	border-color: 1px solid whitesmoke;
 	padding: 10px;
 	width: 100%;

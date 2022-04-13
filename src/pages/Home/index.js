@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Track from "../../components/Track";
 import Searchbar from "../../components/Searchbar";
 import config from "../../utils/config";
@@ -6,7 +6,7 @@ import config from "../../utils/config";
 export default function Home () {
     const [tracks, setTracks] = useState([]);
     const [accessToken, setAccessToken] = useState("");
-    const [isAuthorize, setisAuthorize] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [selectedTrackURI, setselectedTrackURI] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
 
@@ -14,7 +14,7 @@ export default function Home () {
         const params = new URLSearchParams(window.location.hash);
         const accessToken = params.get("#access_token");
         setAccessToken(accessToken);
-        setisAuthorize(accessToken !== null);
+        setIsAuthorized(accessToken !== null);
     }, []); 
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export default function Home () {
 
     return (
         <div className="container">
-        {!isAuthorize && (
+        {!isAuthorized && (
             <div className="login-app">
                 <p>Please login to Spotify here.</p>
                 <a href={getSpotifyLinkAuthorize()} className="btn btn-primary">
@@ -73,7 +73,7 @@ export default function Home () {
             </div>
         )}
 
-        {isAuthorize && (
+        {isAuthorized && (
             <>
                 <h1>Music Playlist</h1>
                 <Searchbar
@@ -84,7 +84,7 @@ export default function Home () {
             {tracks.length === 0 && <p>No tracks</p>}
 
                 <div className="track-list">
-                {this.state.tracks.map((track) => (
+                {tracks.map((track) => (
                     <Track
                         key={track.id}
                         url={track.album.images[0].url}
