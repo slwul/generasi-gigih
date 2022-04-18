@@ -44,6 +44,15 @@ export const createPlaylist = async (
         collaborative: false,
     });
 
+    const requestOptions ={
+        method: "POST",
+        body,
+        header: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json", 
+        },
+    };
+    
     const response = await fetch(
         `${config.SPOTIFY_BASE_URL}/users/${userId}/playlists}`,
         requestOptions
@@ -73,3 +82,4 @@ export const addTracksToPlaylist = async (accessToken, plalistId, uris) => {
 
     return response;
 };
+

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-export default function Track({ url, title, artist, toggleSelect }) {
-    const [isSelected, setIsSelected] = useState(false);
+export default function Track({ url, title, artist, select, toogle }) {
+    const [isSelected, setIsSelected] = useState(select);
 
     const handleSelect = () => {
         setIsSelected(!isSelected);
-        toggleSelect();
+        select();
     };
     return (
         <div className="card-playlist">
