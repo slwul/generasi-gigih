@@ -1,12 +1,37 @@
 body {
 	font-family: "poppins", sans-serif;
-	background-color: whitesmoke;
+	background-color: white;
 	color: rgb(36, 34, 34);
 }
 .container {
 	width: 90%;
 	margin: 40px;
   	text-align: center;
+}
+
+.form-section {
+	width: 500px;
+	height: 300px;
+	background-color: whitesmoke;
+	padding: 20px;
+	border-radius: 5px;
+}
+.form-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	flex-flow: column wrap;
+}
+
+.form-group input, textarea {
+	border-radius: 5px;
+	border-color: 1px solid whitesmoke;
+	padding: 10px;
+	font-family: "poppins", sans-serif;
+}
+
+label {
+	margin-bottom: 5px;
 }
 
 .title-playlist{

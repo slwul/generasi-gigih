@@ -5,7 +5,7 @@ export default function Track({ url, title, artist, select, toogle }) {
 
     const handleSelect = () => {
         setIsSelected(!isSelected);
-        select();
+        toogle();
     };
     return (
         <div className="card-playlist">
