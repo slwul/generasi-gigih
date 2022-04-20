@@ -92,7 +92,7 @@ export default function Home () {
 
         {isAuthorized && (
             <>
-                <h1>Music Playlist</h1>
+                <h1>Music App</h1>
                 <FormPlaylist
                     accessToken={accessToken}
                     userId={user.id}

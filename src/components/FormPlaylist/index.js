@@ -41,7 +41,7 @@ export default function FromPlaylist({ accessToken, userId, uris}) {
 
     return (
         <div className="form-section">
-			<h1 className="section-title">Create Playlist</h1>
+			<h3 className="section-title">Create Playlist</h3>
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-group">
 						<label htmlFor="title">Title</label>

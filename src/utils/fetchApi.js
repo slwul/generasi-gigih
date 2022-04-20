@@ -46,7 +46,7 @@ export const createPlaylist = async (
 
     const requestOptions ={
         method: "POST",
-        body,
+        body: data,
         header: {
             Authorization: "Bearer " + accessToken,
             "Content-Type": "application/json", 
@@ -61,7 +61,7 @@ export const createPlaylist = async (
     return response;
 };
 
-export const addTracksToPlaylist = async (accessToken, plalistId, uris) => {
+export const addTracksToPlaylist = async (accessToken, playlistId, uris) => {
     const data = JSON.stringify({
         uris,
     });
